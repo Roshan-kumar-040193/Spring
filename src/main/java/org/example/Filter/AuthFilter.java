@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @Component
-@Order(1)
+@Order(3)
 public class AuthFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -23,11 +23,14 @@ public class AuthFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
 
-        //System.out.println(httpRequest.getParameter("admnNo"));
-
-        //httpRequest.setAttribute("admnNo",1002);
-
-        filterChain.doFilter(servletRequest,servletResponse);
+        if(httpRequest.getHeader("token")==null || !httpRequest.getHeader("token").equals("1234")){
+            httpResponse.getWriter().write(
+                    """
+                            User Authentication failed
+                            """
+            );
+        }
+        else filterChain.doFilter(servletRequest,servletResponse);
 
         //System.out.println("Auth filter "+httpResponse.getStatus());
 

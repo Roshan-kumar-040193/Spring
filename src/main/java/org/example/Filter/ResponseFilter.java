@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @Component
-@Order(3)
+@Order(1)
 public class ResponseFilter implements Filter {
 
     private final ObjectMapper mapper;
