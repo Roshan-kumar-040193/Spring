@@ -24,8 +24,8 @@ public class StudentController {
     }
 
     @GetMapping("/getStudent")
-    private ResponseEntity<StudentResponse> getStudentById(@RequestParam int id) {
-        Optional<StudentResponse> response = studentService.getStudentById(id);
+    private ResponseEntity<StudentResponse> getStudentById(@RequestParam int admnNo) {
+        Optional<StudentResponse> response = studentService.getStudentById(admnNo);
         return response.map(studentResponse -> ResponseEntity.status(HttpStatus.OK).body(studentResponse)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 

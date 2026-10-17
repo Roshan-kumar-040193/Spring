@@ -2,14 +2,13 @@ package org.example.DTO;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.context.annotation.Lazy;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StudentResponse {
     @NotBlank
     private String name;
     @NotBlank
-    private int admnNo;
+    private int adminNo;
 
     private Integer score;
 
@@ -22,11 +21,11 @@ public class StudentResponse {
     }
 
     public int getAdmnNo() {
-        return admnNo;
+        return adminNo;
     }
 
     public void setAdmnNo(int admnNo) {
-        this.admnNo = admnNo;
+        this.adminNo = admnNo;
     }
 
     public Integer getScore() {
@@ -35,5 +34,14 @@ public class StudentResponse {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentResponse{" +
+                "name='" + name + '\'' +
+                ", adminNo=" + adminNo +
+                ", score=" + score +
+                '}';
     }
 }

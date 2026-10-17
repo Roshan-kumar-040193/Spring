@@ -25,8 +25,6 @@ public class StudentService {
 
     public Optional<StudentResponse> getStudentById(int id){
 
-
-
         Optional<Student> student1 = repository.findByAdmnNoAndIsDeletedFalse(id);
         if(student1.isEmpty()){
             throw new CustomException("couldn't find a student with id : "+id);
@@ -41,6 +39,7 @@ public class StudentService {
             } else {
                 response.setScore(null);
             }
+            System.out.println(response);
             return Optional.of(response);
         }
     }
