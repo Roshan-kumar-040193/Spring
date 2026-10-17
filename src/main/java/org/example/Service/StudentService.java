@@ -5,6 +5,7 @@ import org.example.DTO.StudentRequest;
 import org.example.DTO.StudentResponse;
 import org.example.DTO.StudentScoreUpdateRequest;
 import org.example.Entity.Student;
+import org.example.Exception.CustomException;
 import org.example.Repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +23,13 @@ public class StudentService {
         this.repository=repository;
     }
 
-    public Optional<StudentResponse> getStudentById(int id) {
+    public Optional<StudentResponse> getStudentById(int id){
+
+
 
         Optional<Student> student1 = repository.findByAdmnNoAndIsDeletedFalse(id);
         if(student1.isEmpty()){
-            return Optional.empty();
+            throw new CustomException("couldn't find a student with id : "+id);
         }
         else{
             StudentResponse response =  new StudentResponse();
@@ -160,4 +163,25 @@ public class StudentService {
         return students.size();
     }
 
+    @Transactional
+    public void deleteStudent(int id) {
+        Optional<Student> student = repository.findByAdmnNoAndIsDeletedFalse(id);
+
+        if(student.isPresent()) {
+            Student student1 = student.get();
+            student1.setDeleted(true);
+            repository.save(student1);
+            System.out.println("Student data is temporarily deleted");
+        }
+        else{
+            Optional<Student> student1 = repository.findByAdmnNo(id);
+            if(student1.isPresent()){
+                repository.delete(student1.get());
+                System.out.println("Student data is permanently deleted");
+            }
+            else{
+                System.out.println("No Student found");
+            }
+        }
+    }
 }

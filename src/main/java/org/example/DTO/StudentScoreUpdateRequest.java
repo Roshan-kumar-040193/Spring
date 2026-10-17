@@ -1,8 +1,12 @@
 package org.example.DTO;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class StudentScoreUpdateRequest {
 
+    @NotBlank
     private int admnNo;
+    @NotBlank
     private int score;
 
     public int getAdmnNo() {

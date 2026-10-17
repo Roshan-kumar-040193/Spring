@@ -1,13 +1,16 @@
 package org.example.DTO;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.context.annotation.Lazy;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StudentResponse {
+    @NotBlank
     private String name;
+    @NotBlank
     private int admnNo;
-    @Lazy
+
     private Integer score;
 
     public String getName() {
