@@ -7,6 +7,7 @@ import org.example.DTO.StudentScoreUpdateRequest;
 import org.example.Entity.Student;
 import org.example.Exception.CustomException;
 import org.example.Repository.StudentRepository;
+import org.example.annotation.TimeDiffAnnotation;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,11 +16,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentService {
+public class StudentService implements School{
+
+    public final int x=10;
 
     private final StudentRepository repository;
 
     StudentService(StudentRepository repository){
+        System.out.println("student service object creation");
         this.repository=repository;
     }
 
@@ -44,6 +48,7 @@ public class StudentService {
         }
     }
 
+    @TimeDiffAnnotation
     public Optional<List<StudentResponse>> getAllStudents() {
         List<Student> student1 = repository.findByIsDeletedFalse();
         if(student1.isEmpty()){

@@ -35,29 +35,24 @@ public class ResponseFilter implements Filter {
 
         ContentCachingResponseWrapper response =
                 new ContentCachingResponseWrapper(httpResponse);
+            filterChain.doFilter(servletRequest, servletResponse);
 
-        try {
-            filterChain.doFilter(servletRequest, response);
+//            byte[] originalBody = response.getContentAsByteArray();
+//
+//            if (originalBody.length > 0
+//                    && response.getContentType() != null
+//                    && response.getContentType().contains("application/json")) {
+//
+//                ObjectNode json = (ObjectNode) mapper.readTree(originalBody);
+//
+//                json.put("name", "Rakesh");
+//                json.put("admnNo", 1005);
+//
+//                byte[] modifiedBody = mapper.writeValueAsBytes(json);
+//
+//                response.resetBuffer();
+//                response.setContentLength(modifiedBody.length);
+//                response.getOutputStream().write(modifiedBody);
 
-            byte[] originalBody = response.getContentAsByteArray();
-
-            if (originalBody.length > 0
-                    && response.getContentType() != null
-                    && response.getContentType().contains("application/json")) {
-
-                ObjectNode json = (ObjectNode) mapper.readTree(originalBody);
-
-                json.put("name", "Rakesh");
-                json.put("admnNo", 1005);
-
-                byte[] modifiedBody = mapper.writeValueAsBytes(json);
-
-                response.resetBuffer();
-                response.setContentLength(modifiedBody.length);
-                response.getOutputStream().write(modifiedBody);
-            }
-        } finally {
-            response.copyBodyToResponse();
-        }
     }
 }

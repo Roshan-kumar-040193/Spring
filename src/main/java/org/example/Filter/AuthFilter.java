@@ -31,10 +31,6 @@ public class AuthFilter implements Filter {
             );
         }
         else filterChain.doFilter(servletRequest,servletResponse);
-
-        //System.out.println("Auth filter "+httpResponse.getStatus());
-
-
     }
 
     @Override

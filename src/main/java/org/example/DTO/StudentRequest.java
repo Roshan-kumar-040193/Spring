@@ -13,8 +13,6 @@ public class StudentRequest {
     @Size(min = 3,max = 50,message = "Name should atleast be of 3 letters")
     private String name;
 
-    @NotNull(message = "Admission number is required")
-    @Min(value = 1, message = "Admission number must be positive")
     private int admnNo;
 
     public String getName() {
@@ -22,7 +20,7 @@ public class StudentRequest {
     }
 
     public void setName(String name) {
-        this.name = name;
+        System.out.println("Setting name");this.name = name;
     }
 
     public int getAdmnNo() {
@@ -31,5 +29,13 @@ public class StudentRequest {
 
     public void setAdmnNo(int admnNo) {
         this.admnNo = admnNo;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentRequest{" +
+                "name='" + name + '\'' +
+                ", admnNo=" + admnNo +
+                '}';
     }
 }
