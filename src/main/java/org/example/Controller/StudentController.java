@@ -27,55 +27,57 @@ public class StudentController {
 
     @GetMapping("/getStudent")
     private ResponseEntity<StudentResponse> getStudentById(@RequestParam int admnNo) {
-        Optional<StudentResponse> response = studentService.getStudentById(admnNo);
-        return response.map(studentResponse -> ResponseEntity.status(HttpStatus.OK).body(studentResponse)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+        Thread t1= new Thread(()->System.out.println("from controller 1 "+studentService.getStudentById(admnNo).get()));
+        Thread t2 = new Thread(()->System.out.println("from controller 2 "+studentService.getStudents(admnNo).get()));
+        t1.start();
+        t2.start();
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
 
-    @GetMapping("/getStudents")
-    private ResponseEntity<List<StudentResponse>> getStudents(){
-        System.out.println("inside getStudents : "+studentService.x);
-        Optional<List<StudentResponse>> response = studentService.getAllStudents();
+    @PostMapping("/updateStudent")
+    public ResponseEntity<List<StudentResponse>> getStudents(){
+        Optional<List<StudentResponse>> response = studentService.updateStudent();
         return response.map(studentResponse -> ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(studentResponse)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
-    @PostMapping("/addStudent")
-    private ResponseEntity<StudentResponse> addStudent(@RequestBody @Valid StudentRequest request){
-        System.out.println("hello");
-        Optional<StudentResponse> response = studentService.addStdent(request);
-        System.out.println("Controller student added");
-        return response.map(studentResponse -> ResponseEntity.status(HttpStatus.OK).body(studentResponse)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
-    }
+//    @PostMapping("/addStudent")
+//    private ResponseEntity<StudentResponse> addStudent(@RequestBody @Valid StudentRequest request){
+//        System.out.println("hello");
+//        Optional<StudentResponse> response = studentService.addStdent(request);
+//        System.out.println("Controller student added");
+//        return response.map(studentResponse -> ResponseEntity.status(HttpStatus.OK).body(studentResponse)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+//    }
 
-    @PostMapping("/batch")
-    public ResponseEntity<List<StudentResponse>> addStudents(
-            @RequestBody @Valid List<StudentRequest> requests) {
+//    @PostMapping("/batch")
+//    public ResponseEntity<List<StudentResponse>> addStudents(
+//            @RequestBody @Valid List<StudentRequest> requests) {
+//
+//        return ResponseEntity.status(HttpStatus.CREATED)
+//                .body(studentService.addStudents(requests));
+//    }
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(studentService.addStudents(requests));
-    }
+//    @PatchMapping("/exam-dates")
+//    public ResponseEntity<Integer> updateExamDates() {
+//        return ResponseEntity.ok(studentService.updateExamDates());
+//    }
 
-    @PatchMapping("/exam-dates")
-    public ResponseEntity<Integer> updateExamDates() {
-        return ResponseEntity.ok(studentService.updateExamDates());
-    }
-
-    @PatchMapping("/scores")
-    public ResponseEntity<Integer> updateScores(
-            @RequestBody @Valid List<StudentScoreUpdateRequest> requests) {
-
-        return ResponseEntity.ok(studentService.updateScores(requests));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> studentDeleted(@PathVariable int id){
-        studentService.deleteStudent(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @TimeDiffAnnotation
-    @GetMapping("/check")
-    public int checking(){
-        return 2;
-    }
+//    @PatchMapping("/scores")
+//    public ResponseEntity<Integer> updateScores(
+//            @RequestBody @Valid List<StudentScoreUpdateRequest> requests) {
+//
+//        return ResponseEntity.ok(studentService.updateScores(requests));
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<String> studentDeleted(@PathVariable int id){
+//        studentService.deleteStudent(id);
+//        return ResponseEntity.noContent().build();
+//    }
+//
+//    @TimeDiffAnnotation
+//    @GetMapping("/check")
+//    public int checking(){
+//        return 2;
+//    }
 }

@@ -18,6 +18,18 @@ public class Student {
     private LocalDateTime resultDate;
     private boolean isDeleted;
 
+    public Student() {
+    }
+
+    public Student(long id, String name, int score, int admnNo, LocalDateTime resultDate, boolean isDeleted) {
+        this.id = id;
+        this.name = name;
+        this.score = score;
+        this.admnNo = admnNo;
+        this.resultDate = resultDate;
+        this.isDeleted = isDeleted;
+    }
+
     public long getId() {
         return id;
     }
@@ -64,5 +76,17 @@ public class Student {
 
     public void setResultDate(LocalDateTime resultDate) {
         this.resultDate = resultDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", score=" + score +
+                ", admnNo=" + admnNo +
+                ", resultDate=" + resultDate +
+                ", isDeleted=" + isDeleted +
+                '}';
     }
 }

@@ -25,11 +25,12 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleRuntimeException(RuntimeException c){
+        System.out.println(c.getMessage());
         return ResponseEntity.status(500).body(c.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(RuntimeException c){
+    public ResponseEntity<String> handleException(Exception c){
         return ResponseEntity.status(500).body(c.getMessage());
     }
 }
