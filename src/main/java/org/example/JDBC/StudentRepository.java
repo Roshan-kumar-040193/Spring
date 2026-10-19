@@ -3,6 +3,8 @@ package org.example.JDBC;
 
 import org.example.Entity.Student;
 
+import javax.sql.DataSource;
+import javax.swing.tree.RowMapper;
 import java.beans.JavaBean;
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,6 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 public class StudentRepository {
+
+    DataSource dataSource;
+
+    RowMapper rowMapper;
 
     String url = "jdbc:postgresql://localhost:5432/mydb/testing";
     String username = "app_user";
